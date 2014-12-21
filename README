@@ -28,3 +28,18 @@ ju_report : 将数据装入.xls
 logs : 日志文件
 utils : 公用功能
 script : 脚本功能
+
+4、注意事项
+以为尚未研究如何自动导入PathonPath，所以在运行script脚本功能时，首先要将项目
+路径加入到PathonPath
+在我本地的例子:
+	>>> export PYTHONPATH=$PYTHONPATH/Users/huayuev5/Work_Place/Python_Work_Place/ju_spider
+验证是否成功:
+	>>> ipython
+	[1] import sys
+	[2] from pprint import pprint as pp
+	[3] pp(sys.path)
+
+
+
+
