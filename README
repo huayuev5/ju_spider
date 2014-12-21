@@ -1,0 +1,30 @@
+#################################################################
+					       《说明文档》
+#################################################################
+1、环境搭建
+python版本 : 2.76
+pip list:
+	backports.ssl-match-hostname (3.4.0.2)
+	beautifulsoup4 (4.3.2)
+	certifi (14.05.14)
+	pycurl (7.19.5)
+	pyExcelerator (0.6.4.1)
+	setuptools (3.6)
+	tornado (4.0.2)
+	wsgiref (0.1.2)
+	xlrd (0.9.3)
+SQL： 初步使用mysql
+Apache/Nginx配置： 待续
+
+2、需求说明
+把聚划算上的某品牌的商品数据集从网页上抓取下来，通过使用tornado/highchart/
+mysql 在web上演示图表进行分析。
+
+
+3、项目说明
+apps : tornado 相关服务
+ju_db : 将数据装入数据库
+ju_report : 将数据装入.xls
+logs : 日志文件
+utils : 公用功能
+script : 脚本功能
