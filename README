@@ -4,15 +4,15 @@
 1、环境搭建
 python版本 : 2.76
 pip list:
-	backports.ssl-match-hostname (3.4.0.2)
-	beautifulsoup4 (4.3.2)
-	certifi (14.05.14)
-	pycurl (7.19.5)
-	pyExcelerator (0.6.4.1)
-	setuptools (3.6)
 	tornado (4.0.2)
-	wsgiref (0.1.2)
+	pycurl (7.19.5) (is used by the optional tornado.curl_httpclient. Libcurl version 				7.18.2 or higher is required; version 7.21.1 or higher is recommended.)
+
+	beautifulsoup4 (4.3.2)
+	pyExcelerator (0.6.4.1)
 	xlrd (0.9.3)
+	torndb (0.3)
+	MySQL-python (1.2.5)
+
 SQL： 初步使用mysql
 Apache/Nginx配置： 待续
 
@@ -24,7 +24,7 @@ mysql 在web上演示图表进行分析。
 3、项目说明
 apps : tornado 相关服务
 ju_db : 将数据装入数据库
-ju_report : 将数据装入.xls
+ju_report : 将数据装入 *.xls
 logs : 日志文件
 utils : 公用功能
 script : 脚本功能
@@ -40,6 +40,8 @@ script : 脚本功能
 	[2] from pprint import pprint as pp
 	[3] pp(sys.path)
 
+5、功能演示:
+	1、生成excel，首先在config下的input.xls中填入你想要抓取的聚划算网页，然后执行script/report_one_time.py
 
-
+	2、抓取数据到mysql
 

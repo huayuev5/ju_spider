@@ -130,14 +130,21 @@ class GetJuItem(object):
                     'detail_src': '',
                 }
                 row['name'] = i.h3.attrs.get('title', '')
-                row['desc'] = i.h4.string.strip().replace(' ', '')
+                if i.h4:
+                    row['desc'] = i.h4.string.strip().replace(' ', '')
+                else:
+                    row['desc'] = i.h3.attrs.get('title', '')
                 row['date_time'] = time.strftime('%Y-%m-%d-%H:%M:%S',time.localtime(time.time()))
                 soup_price = i.find('div', 'item-prices')
                 row['price'] = string.atof(soup_price.em.string)
                 row['orig_price'] = string.atof(string.atof(soup_price.find('del', 'orig-price').string.encode('gbk', 'ignore')))
                 row['discount'] = round(row['price']/row['orig_price'], 2)
-                row['sold_num'] = string.atof(i.find('span', 'sold-num').em.next)
-                row['str_people'] = i.find('span', 'sold-num').em.next.next.strip()
+                if i.find('span', 'sold-num').em:
+                    row['sold_num'] = string.atof(i.find('span', 'sold-num').em.next)
+                    row['str_people'] = i.find('span', 'sold-num').em.next.next.strip()
+                else:
+                    row['sold_num'] = 0
+                    row['str_people'] = i.find('span', 'sold-num').next.strip()
                 row['brand_name'] = self.brand_name
                 row['item_type'] = u'普通'
                 row['img_src'] = i.img.attrs.get('data-ks-lazyload', '')
