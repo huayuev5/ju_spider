@@ -43,5 +43,5 @@ script : 脚本功能
 5、功能演示:
 	1、生成excel，首先在config下的input.xls中填入你想要抓取的聚划算网页，然后执行script/report_one_time.py
 
-	2、抓取数据到mysql
+	2、抓取数据到mysql.
 
