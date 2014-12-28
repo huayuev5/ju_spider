@@ -31,7 +31,7 @@ script : 脚本功能
 
 4、注意事项
 以为尚未研究如何自动导入PathonPath，所以在运行script脚本功能时，首先要将项目
-路径加入到PathonPath
+路径加入到PathonPath.
 在我本地的例子:
 	>>> export PYTHONPATH=$PYTHONPATH/Users/huayuev5/Work_Place/Python_Work_Place/ju_spider
 验证是否成功:
