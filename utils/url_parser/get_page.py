@@ -1,9 +1,9 @@
 # -*-coding:utf-8-*-
 import time
+import os
 import urlparse
 import urllib
 import urllib2
-from ju_setting import STATIC_ROOT
 from utils.log import get_file_logger
 
 
@@ -25,6 +25,7 @@ class GetPageData(object):
     '''
     urls = []
     brand_names = []
+    log = get_file_logger('get_page')
 
     def __init__(self, url_list, brand_names=[]):
         for i in url_list:
@@ -34,7 +35,6 @@ class GetPageData(object):
 
         user_agent = 'Mozilla/6.0 (compatible; MSIE 5.5; Windows NT)'
         self.headers = {'User-Agent': user_agent}
-        self.log = get_file_logger('ju_report')
 
     def get_page(self, url='', page_title=u'', decode_str='gbk'):
         """
@@ -77,18 +77,17 @@ class GetPageData(object):
                 continue
         return data
 
-    def get_images(self, url='', brand_name=''):
+    @classmethod
+    def get_images(cls, url='', item_name='Unknown'):
         try:
             if not url.strip():
                 raise Exception('url is None')
             dateline = time.strftime('%Y-%m-%d-%H:%M:%S', time.localtime(time.time()))
-            title = '/images' + brand_name
-            path = STATIC_ROOT
-            new_path = os.path.join(path, title)
-            if not os.path.isdir(new_path):
-                os.makedirs(new_path)
-            urllib.urlretrieve(url, '%s/%s.jpg' % (new_path, brand_name+dateline))
+            path = './images'
+            if not os.path.isdir(path):
+                os.makedirs(path)
+            urllib.urlretrieve(url, '%s/%s.jpg' % (path, item_name+dateline))
             return True
         except Exception, e:
-            self.log.error(e)
+            cls.log.error(e)
             return False

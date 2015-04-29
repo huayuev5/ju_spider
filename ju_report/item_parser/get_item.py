@@ -102,7 +102,7 @@ class GetJuItem(object):
                 row['brand_name'] = self.brand_name
                 row['item_type'] = u'热款'
                 row['img_src'] = i.img.attrs.get('data-ks-lazyload', '')
-                row['src_detail'] = i.a.attrs.get('href', '')
+                row['src_detail'] = 'http://detail.tmall.com/item.htm?id=%s' % i.a.attrs.get('href', '').split('item_id=')[1]
             except Exception, e:
                 self.log.error(e)
                 continue
@@ -148,7 +148,7 @@ class GetJuItem(object):
                 row['brand_name'] = self.brand_name
                 row['item_type'] = u'普通'
                 row['img_src'] = i.img.attrs.get('data-ks-lazyload', '')
-                row['src_detail'] = i.a.attrs.get('href', '')
+                row['src_detail'] = 'http://detail.tmall.com/item.htm?id=%s' % i.a.attrs.get('href', '').split('item_id=')[1]
             except Exception, e:
                 self.log.error(e)
                 continue

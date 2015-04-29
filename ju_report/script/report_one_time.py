@@ -7,9 +7,9 @@ from ju_report.item_parser.get_item import GetJuFloor, GetJuItem
 from config.ju_define import JU_ITEM_HEADER
 from bs4 import BeautifulSoup
 
-def get_image_input_console(url, brand_name):
+def get_image_input(url, brand_name):
     is_get_image = False
-    flag = raw_input(u"===》是否抓取图片？（是：yes或y，否：任意其他输入）：%s \n" % brand_name)
+    flag = raw_input("===》是否抓取的图片？（是：yes或y，否：任意其他输入） \n")
     if flag.strip().lower() in ['yes', 'y']:
         is_get_image = True
     return is_get_image
@@ -27,29 +27,29 @@ def main():
     ju_pages = GetPageData(ju_urls, ju_brands)
     result = []
     for i, j in zip(ju_urls, ju_brands):
-        result.append(ju_pages.get_page(i, j))
-        say_hi_to_start(i, j)
-        
-        is_get_image = get_image_input_console(i, j)
-
-    # 在页面中抓取出floors
-    floors = []
-    for index, item in enumerate(result):
-        floors.append(GetJuFloor(item['data'], item['title']).get_floors())
-
-    values = []
-    time_start = time.strftime('%Y-%m-%d-%H-%M-%S',time.localtime(time.time()))
-    for item in floors:
+        page = ju_pages.get_page(i, j)
         row_big_item = []
         row_small_item = []
-        row_big_item = GetJuItem(item.get('big'), item['brand_name']).get_big_items()
-        values.extend(row_big_item)
-        small_pages = GetPageData(item['small'].get('urls'), item['brand_name']).get_pages()
-        for i in small_pages:
-            row_small_item.extend(GetJuItem(i, item['brand_name']).get_small_items())
-        values.extend(row_small_item)
-        excel_handler.excel_insert(item['brand_name']+time_start+'.xls', values, JU_ITEM_HEADER)
-
+        say_hi_to_start(i, j)
+        if not page:
+            failed = raw_input("===》抓取失败，请检查网路是否正常，按任意键退出......")
+            return False
+        else:
+            floor = GetJuFloor(page['data'], page['title']).get_floors()
+            time_start = time.strftime('%Y-%m-%d-%H-%M-%S',time.localtime(time.time()))
+            row_big_item = GetJuItem(floor.get('big'), floor['brand_name']).get_big_items()
+            result.extend(row_big_item)
+            small_pages = GetPageData(floor['small'].get('urls'), floor['brand_name']).get_pages()
+            for i in small_pages:
+                row_small_item.extend(GetJuItem(i, j).get_small_items())
+            result.extend(row_small_item)
+            excel_handler.excel_insert(j+time_start+'.xls', result, JU_ITEM_HEADER)
+            print u"%s 报表制作完成" % (j+time_start+'.xls')
+            if get_image_input(i, j):
+                for item in result:
+                    GetPageData.get_images(item['img_src'], item['name'])
+    success = raw_input("===》运行结束，按任意键退出......\n")
+    return True
 
 if __name__ in "__main__":
     main()
