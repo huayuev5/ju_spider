@@ -13,6 +13,7 @@ from ju_setting import MYSQL_USER, MYSQL_PASSWORD
 from utils.log import get_file_logger
 
 
+# TODO rewrite
 def main():
     log = get_file_logger('ju_item_insert')
     hostaddress = 'localhost'
@@ -34,7 +35,7 @@ def main():
         floors.append(GetJuFloor(item['data'], item['title']).get_floors())
 
     values = []
-    time_start = time.strftime('%Y-%m-%d-%H:%M:%S',time.localtime(time.time()))
+    time_start = time.strftime('%Y-%m-%d-%H:%M:%S', time.localtime(time.time()))
 
     for item in floors:
         row_big_item = []
@@ -63,7 +64,9 @@ def main():
             else:
                 is_started = False
             item_id = string.atoi(re.findall(r'\d+', value['src_detail'])[0])
-            db_item.append([item_id, value['name'], value['desc'], value['date_time'], value['price'], value['orig_price'], is_started, value['item_type'], value['brand_name']])
+            db_item.append(
+                [item_id, value['name'], value['desc'], value['date_time'], value['price'], value['orig_price'],
+                 is_started, value['item_type'], value['brand_name']])
             db_item_num.append([item_id, value['sold_num']])
             db_item_detail.append([item_id, value['img_src'], value['src_detail']])
         except Exception, e:

@@ -1,4 +1,4 @@
-# -*-coding:utf-8-*-
+# -*- coding: utf-8 -*-
 from pyExcelerator import *
 import xlrd
 from utils.log import get_file_logger
@@ -8,7 +8,6 @@ class DealExcel(object):
     """
     将信息读出或存入excel文件中
     """
-
     def __init__(self, file_name, sheet_name):
         self.file_name = file_name
         self.sheet_name = sheet_name
@@ -29,8 +28,8 @@ class DealExcel(object):
                 start_row_num = 1
             elif column_num > sheet_columns:
                 column_num = 0
-            for i in range(start_row_num-1, sheet_rows):
-                column_values.append(sheet_info.cell_value(i, column_num-1))
+            for i in range(start_row_num - 1, sheet_rows):
+                column_values.append(sheet_info.cell_value(i, column_num - 1))
         except Exception, e:
             self.log.error(e)
             return []
@@ -45,11 +44,11 @@ class DealExcel(object):
         len_values = len(values)
         if row_num == 0:
             for index, item in enumerate(header):
-                #print row_num,index,item
+                # print row_num,index,item
                 try:
                     ws.write(row_num, index, item)
                 except Exception, e:
-                    self.log.error(e + str(item))
+                    self.log.error(str(e) + str(item))
                     continue
             row_num = row_num + 1
         for index, value in enumerate(values):
